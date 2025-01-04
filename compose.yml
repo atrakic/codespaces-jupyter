@@ -1,0 +1,11 @@
+services:
+  jupyter:
+    build: .
+    container_name: jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - $PWD:/home/jovyan/work:rw
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - JUPYTER_TOKEN=foo
