@@ -1,4 +1,5 @@
 services:
+  # usage: docker exec -it jupyter pip list
   jupyter:
     build: .
     container_name: jupyter
