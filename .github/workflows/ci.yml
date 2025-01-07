@@ -11,6 +11,9 @@ on:
 jobs:
     execute-notebook:
         runs-on: ubuntu-latest
+        strategy:
+            matrix:
+              notebook: [sqlite-data-analasis.ipynb]
 
         steps:
           - name: Checkout repository
@@ -31,12 +34,12 @@ jobs:
           - name: Install dependencies
             run: |
               python -m pip install --upgrade pip
-              pip install nbconvert nbformat jupyter
+              pip install -r ci-requirements.txt
               pip install -r requirements.txt
 
           - name: Execute notebook
             run: |
+              chmod +x ./run-notebook.sh
+              ./run-notebook.sh ${{ matrix.notebook }}
               jupyter nbconvert --to notebook \
-                  --execute sqlite-data-analasis.ipynb \
-                  --stdout | jq -r '.cells[] | select(.outputs) | .outputs[] | select(.output_type == "stream") | .text[]'
             working-directory: ${{ github.workspace }}/notebooks
