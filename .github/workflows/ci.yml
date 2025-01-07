@@ -39,7 +39,6 @@ jobs:
 
           - name: Execute notebook
             run: |
-              chmod +x ./run-notebook.sh
-              ./run-notebook.sh ${{ matrix.notebook }}
-              jupyter nbconvert --to notebook \
+              chmod +x ../run-notebook.sh
+              ../run-notebook.sh ${{ matrix.notebook }}
             working-directory: ${{ github.workspace }}/notebooks
